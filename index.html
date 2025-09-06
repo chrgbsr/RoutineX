@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RoutineX — Interactive Routine Timer</title>
+  <meta name="description" content="RoutineX: An interactive routine timer with voice announcements, auto-triggered profiles, and persistent scheduling." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23000' d='M8 48h48v4H8zM20 12h24l12 20-12 20H20L8 32z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div id="splash">
+    <h1>RoutineX</h1>
+    <p>Made By Chrg_Bsr</p>
+  </div>
+  <div class="bg-animated" aria-hidden="true">
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+  </div>
+
+  <main class="container">
+    <header class="header">
+      <h1 class="app-title">RoutineX</h1>
+      <div class="credits">Made By Chrg_Bsr</div>
+    </header>
+
+    <section class="toolbar">
+      <div class="profile-group">
+        <label for="profileSelect">Profile</label>
+        <select id="profileSelect" aria-label="Routine profile"></select>
+        <button id="btnNewProfile" class="btn">New</button>
+        <button id="btnRenameProfile" class="btn">Rename</button>
+        <button id="btnDeleteProfile" class="btn danger">Delete</button>
+      </div>
+
+      <div class="controls">
+        <button id="btnStart" class="btn primary">Start</button>
+        <button id="btnPause" class="btn">Pause</button>
+        <button id="btnReset" class="btn">Reset</button>
+        <button id="btnAddTask" class="btn accent">Add Task</button>
+      </div>
+    </section>
+
+    <section class="timer-area">
+      <div class="progress-wrap" role="img" aria-label="Circular progress indicator">
+        <svg class="progress" width="220" height="220" viewBox="0 0 100 100">
+          <circle class="track" cx="50" cy="50" r="45" />
+          <circle class="indicator" cx="50" cy="50" r="45" stroke-dasharray="282.743" stroke-dashoffset="282.743" />
+          <text class="time-text" x="50" y="50" dominant-baseline="middle" text-anchor="middle">00:00</text>
+          <text class="task-text" x="50" y="66" dominant-baseline="middle" text-anchor="middle"></text>
+        </svg>
+      </div>
+      <div class="next-up" id="nextUp" aria-live="polite"></div>
+    </section>
+
+    <section class="tasks">
+      <h2>Tasks</h2>
+      <ul id="taskList" class="task-list" aria-live="polite"></ul>
+      <p class="hint">Tip: drag the handle to reorder tasks.</p>
+    </section>
+
+    <footer class="footer">
+      <div>Auto triggers: Morning 05:00, Night 22:00</div>
+      <div class="legal"><a href="./LICENSE" target="_blank" rel="noopener">MIT License</a></div>
+    </footer>
+  </main>
+
+  <!-- Add/Edit Task Modal -->
+  <dialog id="taskDialog">
+    <form method="dialog" id="taskForm">
+      <h3 id="taskDialogTitle">Add Task</h3>
+      <label>
+        Task name
+        <input id="taskName" type="text" required maxlength="80" />
+      </label>
+      <label>
+        Duration (minutes)
+        <input id="taskMinutes" type="number" min="1" max="240" required />
+      </label>
+      <menu class="dialog-actions">
+        <button value="cancel" class="btn">Cancel</button>
+        <button id="taskSave" value="default" class="btn primary">Save</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <audio id="alarmAudio" src="./assets/chime.wav" preload="auto"></audio>
+
+  <script src="./script.js"></script>
+</body>
+</html>
