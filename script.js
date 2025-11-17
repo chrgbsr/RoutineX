@@ -619,6 +619,42 @@
   }
 
   /*** Init ***/
+// ... inside the init() function in script.js
+
+  function init(){
+    load();
+    renderProfiles();
+    renderTasks();
+    resetTimer();
+
+    // Warm up TTS on first user gesture (silent utterance)
+    document.addEventListener("click", function once(){
+      try{
+        const u = new SpeechSynthesisUtterance(" ");
+        u.volume = 0;
+        speechSynthesis.speak(u);
+      }catch(e){}
+      document.removeEventListener("click", once);
+    }, { once: true });
+
+    wire();
+    scheduleDailyTriggers();
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  }
+
+  // ... rest of your script.js
   function init(){
     load();
     renderProfiles();
